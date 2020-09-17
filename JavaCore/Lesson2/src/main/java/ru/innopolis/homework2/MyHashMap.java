@@ -24,9 +24,8 @@ public class MyHashMap {
      *
      * @param key   ключ
      * @param value значение
-     * @return Значение заменяемого элемента или null, если такого ключа нет
      */
-    public Object put(final Object key, final Object value) {
+    public void put(final Object key, final Object value) {
         final int bucket = getBucked(key);
         Node node = nodes[bucket];
 
@@ -36,20 +35,19 @@ public class MyHashMap {
         } else {
             while (true) {
                 if (Objects.equals(node.key, key)) {
-                    Object oldValue = node.value;
                     node.value = value;
-                    return oldValue;
+                    break;
                 }
-                if (node.next != null) {
-                    node = node.next;
-                } else break;
+                if (node.next == null) {
+                    break;
+                }
+                node = node.next;
             }
             node.next = new Node(key, value);
         }
         if (countFullBucked >= size * PROCENT_FULL) {
             resize();
         }
-        return null;
     }
 
     /**
@@ -68,11 +66,7 @@ public class MyHashMap {
             }
             node = node.next;
         }
-        try {
-            throw new Exception("Не удается получить! Такого ключа нет!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         return null;
     }
 
@@ -85,12 +79,12 @@ public class MyHashMap {
      * Удаляет элемент
      *
      * @param key ключ удалемого элемента
-     * @return значение удаляемого элемента
      */
-    public Object remove(final Object key) {
+    public void remove(final Object key) {
         final int bucket = getBucked(key);
         Node node = nodes[bucket];
-        if (node != null) {
+
+        try {
             if (Objects.equals(node.key, key)) {
                 if (node.next == null) {
                     nodes[bucket] = null;
@@ -98,26 +92,18 @@ public class MyHashMap {
                 } else {
                     nodes[bucket] = node.next;
                 }
-                return node.value;
             } else {
                 while (node.next != null) {
                     if (Objects.equals(node.next.key, key)) {
-                        Node oldNode = node.next;
                         node.next = node.next.next;
-                        return oldNode.value;
+                        break;
                     }
                     node = node.next;
                 }
             }
-        }
-
-        try {
-            throw new Exception("Не удается удалить! Такого ключа нет!");
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 
     /**
@@ -162,11 +148,9 @@ public class MyHashMap {
         for (Node node_i : oldNodes) {
             if (node_i != null) {
                 node = node_i;
-                while (true) {
+                while (node != null) {
                     this.put(node.key, node.value);
-                    if (node.next != null) {
-                        node = node.next;
-                    } else break;
+                    node = node.next;
                 }
             }
         }

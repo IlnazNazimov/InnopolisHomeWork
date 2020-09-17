@@ -50,13 +50,6 @@ class MyHashMapTest {
     }
 
     @org.junit.jupiter.api.Test
-    void removeReturnValue() {
-        final MyHashMap myHashMap = inicialization();
-
-        assertEquals(myHashMap.remove("Кошка3"), 3);
-    }
-
-    @org.junit.jupiter.api.Test
     void remove() {
         final MyHashMap myHashMap = inicialization();
 
@@ -70,13 +63,6 @@ class MyHashMapTest {
 
         myHashMap.remove(null);
         assertFalse(myHashMap.containsKey(null));
-    }
-
-    @org.junit.jupiter.api.Test
-    void removeNullReturnValue() {
-        final MyHashMap myHashMap = inicialization();
-
-        assertEquals(myHashMap.remove(null), 2);
     }
 
     @org.junit.jupiter.api.Test
