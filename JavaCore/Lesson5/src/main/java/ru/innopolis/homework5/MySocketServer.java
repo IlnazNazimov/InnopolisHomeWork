@@ -22,19 +22,19 @@ public class MySocketServer {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Сервер запущен!");
 
-            sendFileNames(serverSocket);
+            runRequestListener(serverSocket);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     /**
-     * На GET запросы отвечает названиями файлов в текущей директории
+     * Слушатель запросов. На GET запросы отвечает названиями файлов в текущей директории
      *
      * @param serverSocket Сокет сервер
      * @throws IOException Ошибка чтения/записи данных
      */
-    private void sendFileNames(ServerSocket serverSocket) throws IOException {
+    private void runRequestListener(ServerSocket serverSocket) throws IOException {
         while (true) {
             Socket socket = serverSocket.accept();
 
