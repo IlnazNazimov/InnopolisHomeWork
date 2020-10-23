@@ -6,3 +6,5 @@ CREATE TABLE users (
 
 INSERT INTO users (name, password)
 VALUES ('user', '$2y$05$TlsdUPcjojVA0AUe9JlSTOaEWxFss6zzmJLcjfrQoQikS0yR6h.gq')
+--Login:user
+--password:user
