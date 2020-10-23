@@ -6,4 +6,6 @@ CREATE TABLE cats (
 );
 
 INSERT into cats (name, color, paws_count)
-VALUES ('Barsik', 'RED', 3);
+VALUES ('Barsik', 'RED', 3),
+('Vasya', 'BLACK', 4),
+('Puska', 'BLUE', 5);

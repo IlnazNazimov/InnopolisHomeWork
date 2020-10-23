@@ -1,7 +1,8 @@
 package com.example.test.demo.sequrity;
 
-import com.example.test.demo.UserRepository;
+import com.example.test.demo.repository.UserRepository;
 import com.example.test.demo.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,14 +16,10 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
+@RequiredArgsConstructor
 public class MyAuthenProvider implements AuthenticationProvider {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public MyAuthenProvider(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
